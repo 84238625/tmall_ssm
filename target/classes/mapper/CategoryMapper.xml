@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--       CategoryMapper.xml的namespace必须是com.how2java.tmall.mapper.CategoryMapper,以和CategoryMapper保持一致。-->
+<mapper namespace="com.how2java.tmall.mapper.CategoryMapper">
+    <select id="list" resultType="Category">
+--        倒排序查询所有分类
+    select * from   category order by id desc
+  </select>
+</mapper>
