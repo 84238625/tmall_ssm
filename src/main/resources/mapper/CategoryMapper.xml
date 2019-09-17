@@ -7,5 +7,12 @@
     <select id="list" resultType="Category">
 --        倒排序查询所有分类
     select * from   category order by id desc
+    <if test="start!=null and count !=null">
+        limit #{start},#{count}
+    </if>
   </select>
+
+    <select id="total" resultType="int">
+        select count(*) from category
+    </select>
 </mapper>
