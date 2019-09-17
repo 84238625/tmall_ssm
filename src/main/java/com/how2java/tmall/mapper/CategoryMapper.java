@@ -5,6 +5,7 @@ import com.how2java.tmall.pojo.Category;
 import java.util.List;
  
 public interface CategoryMapper {
-    public List<Category> list(Page page);  //分页查询方法
-    public int total(); //查询总数方法
+     List<Category> list(Page page);  //分页查询方法
+     int total(); //查询总数方法
+     void add(Category category);//增加分类
 }
