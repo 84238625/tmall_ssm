@@ -46,7 +46,14 @@ CategoryService categoryService;
         uploadedImageFile.getImage().transferTo(file);
         BufferedImage img = ImageUtil.change2jpg(file);
         ImageIO.write(img, "jpg", file);
-
+        return "redirect:/admin_category_list";
+    }
+    @RequestMapping("admin_category_delete")
+        public String delete(int id,HttpSession session)throws IOException {
+        categoryService.delete(id);
+        File  imageFolder= new File(session.getServletContext().getRealPath("img/category"));
+        File file = new File(imageFolder,id+".jpg");
+        file.delete();
         return "redirect:/admin_category_list";
     }
 

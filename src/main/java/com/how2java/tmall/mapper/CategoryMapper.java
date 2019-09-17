@@ -8,4 +8,5 @@ public interface CategoryMapper {
      List<Category> list(Page page);  //分页查询方法
      int total(); //查询总数方法
      void add(Category category);//增加分类
+     void delete(int id);
 }
