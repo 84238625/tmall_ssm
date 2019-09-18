@@ -21,24 +21,26 @@ import java.util.List;
 @RequestMapping("")
 public class CategoryController {
     @Autowired
-CategoryService categoryService;
+    CategoryService categoryService;
+
     @RequestMapping("admin_category_list")
-        public String list(Model model, Page page){
-        List<Category> cs=categoryService.list(page);
-        int total=categoryService.total();
+    public String list(Model model, Page page) {
+        List<Category> cs = categoryService.list(page);
+        int total = categoryService.total();
         page.setTotal(total);
         model.addAttribute("cs", cs);
-        model.addAttribute("page",page);
+        model.addAttribute("page", page);
         return "admin/listCategory";
     }
+
     @RequestMapping("admin_category_add")
-        public String add(Category c, HttpSession session, UploadedImageFile uploadedImageFile)throws IOException{
+    public String add(Category c, HttpSession session, UploadedImageFile uploadedImageFile) throws IOException {
         System.out.println(c.getId());
         categoryService.add(c);
         System.out.println(c.getId());
-        File imageFolder= new File(session.getServletContext().getRealPath("img/category"));
-        File file = new File(imageFolder,c.getId()+".jpg");
-        if(!file.getParentFile().exists())
+        File imageFolder = new File(session.getServletContext().getRealPath("img/category"));
+        File file = new File(imageFolder, c.getId() + ".jpg");
+        if (!file.getParentFile().exists())
             file.getParentFile().mkdirs();
         System.out.println(uploadedImageFile);
         System.out.println(uploadedImageFile.getImage());
@@ -48,15 +50,22 @@ CategoryService categoryService;
         ImageIO.write(img, "jpg", file);
         return "redirect:/admin_category_list";
     }
+
     @RequestMapping("admin_category_delete")
-        public String delete(int id,HttpSession session)throws IOException {
+    public String delete(int id, HttpSession session) throws IOException {
         categoryService.delete(id);
-        File  imageFolder= new File(session.getServletContext().getRealPath("img/category"));
-        File file = new File(imageFolder,id+".jpg");
+        File imageFolder = new File(session.getServletContext().getRealPath("img/category"));
+        File file = new File(imageFolder, id + ".jpg");
         file.delete();
         return "redirect:/admin_category_list";
     }
 
-
+    @RequestMapping("admin_category_edit")
+    public String edit(int id, Model model) throws IOException {
+         Category c= categoryService.get(id);
+         model.addAttribute("c",c);
+         return "admin/editCategory";
+    }
 
 }
+

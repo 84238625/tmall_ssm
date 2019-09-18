@@ -6,17 +6,26 @@
 <mapper namespace="com.how2java.tmall.mapper.CategoryMapper">
     <select id="list" resultType="Category">
 --        倒排序查询所有分类
-    select * from   category order by id desc
-    <if test="start!=null and count !=null">
-        limit #{start},#{count}
-    </if>
-  </select>
+            select * from   category order by id desc
+        <if test="start!=null and count !=null">
+            limit #{start},#{count}
+         </if>
+    </select>
 
     <select id="total" resultType="int">
         select count(*) from category
     </select>
 
     <insert id="add" keyProperty="id" useGeneratedKeys="true" parameterType="Category">
-    insert into category (name) values (#{name})
+         insert into category (name) values (#{name})
     </insert>
+
+    <delete id="delete">
+        delete from category where id=#{id}
+    </delete>
+
+    <select id="get"  resultType="Category">
+        select * from category where id=#{id}
+    </select>
+
 </mapper>
