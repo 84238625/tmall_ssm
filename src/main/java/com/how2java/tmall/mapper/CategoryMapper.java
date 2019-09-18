@@ -10,4 +10,5 @@ public interface CategoryMapper {
      void add(Category category);//增加分类
      void delete(int id);//删除分类
      Category get(int id);//编辑中得到该分类信息
+     void update(Category category);//更改分类信息
 }

@@ -28,4 +28,8 @@
         select * from category where id=#{id}
     </select>
 
+    <update id="update" parameterType="Category">
+        update category set name=#{name} where id=#{id}
+    </update>
+
 </mapper>
