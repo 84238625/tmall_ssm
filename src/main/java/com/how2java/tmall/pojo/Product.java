@@ -3,6 +3,17 @@ package com.how2java.tmall.pojo;
 import java.util.Date;
 
 public class Product {
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    /*非数据库字段*/
+    private Category category;
+
     private Integer id;
 
     private String name;
@@ -18,6 +29,16 @@ public class Product {
     private Integer cid;
 
     private Date createDate;
+
+    public ProductImage getFirstProductImage() {
+        return firstProductImage;
+    }
+
+    public void setFirstProductImage(ProductImage firstProductImage) {
+        this.firstProductImage = firstProductImage;
+    }
+
+    private ProductImage firstProductImage;
 
     public Integer getId() {
         return id;

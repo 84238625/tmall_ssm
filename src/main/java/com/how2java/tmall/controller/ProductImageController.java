@@ -36,7 +36,7 @@ public class ProductImageController {
         return "admin/listProductImage";
     }
 
-    @RequestMapping("admin_ProductImage_add")
+    @RequestMapping("admin_productImage_add")
     public String add(ProductImage pi, HttpSession session, UploadedImageFile uploadedImageFile) {
         productImageService.add(pi);
         String fileName = pi.getId() + ".jpg";
@@ -44,11 +44,11 @@ public class ProductImageController {
         String imageFolder_small = null;
         String imageFolder_middle = null;
         if (ProductImageService.type_single.equals(pi.getType())) {
-            imageFolder = session.getServletContext().getRealPath("img/ProductSingle");
-            imageFolder_small = session.getServletContext().getRealPath("img/ProductSingle_small");
-            imageFolder_middle = session.getServletContext().getRealPath("img/ProductSingle_middle");
+            imageFolder = session.getServletContext().getRealPath("img/productSingle");
+            imageFolder_small = session.getServletContext().getRealPath("img/productSingle_small");
+            imageFolder_middle = session.getServletContext().getRealPath("img/productSingle_middle");
         } else {
-            imageFolder = session.getServletContext().getRealPath("img/ProductDetail");
+            imageFolder = session.getServletContext().getRealPath("img/productDetail");
         }
         File file = new File(imageFolder, fileName);
 
@@ -69,6 +69,34 @@ public class ProductImageController {
         }
 
         return "redirect:admin_productImage_list?pid=" + pi.getPid();
+
+    }
+
+    @RequestMapping("admin_productImage_delete")
+    public String delete(int id,HttpSession session){
+        String imageFolder;
+        String imageFolder_small=null;
+        String  imageFolder_middle=null;
+        ProductImage image=productImageService.get(id);
+        if(ProductImageService.type_single.equals(image.getType())){
+           imageFolder=session.getServletContext().getRealPath("img/productSingle");
+           imageFolder_small=session.getServletContext().getRealPath("img/productSingle_small");
+            imageFolder_middle=session.getServletContext().getRealPath("img/productSingle_middle");
+            File f=new File(imageFolder,id+".jpg");
+            File f_small=new File( imageFolder_small,id+".jpg");
+            File f_middle=new File(imageFolder_middle,id+".jpg");
+            f.delete();
+            f_small.delete();
+            f_middle.delete();
+        }
+        else{
+            imageFolder=session.getServletContext().getRealPath("img/productDetail");
+            File f=new File(imageFolder,id+".jpg");
+            f.delete();
+        }
+
+        productImageService.delete(id);
+ return "redirect:admin_productImage_list?pid="+image.getPid();
 
     }
 }
